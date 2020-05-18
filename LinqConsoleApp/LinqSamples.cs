@@ -199,14 +199,11 @@ namespace LinqConsoleApp
             //1. Query syntax (SQL)
             var res = from emp in Emps
                       where emp.Job == "Backend programmer"
-                      select new
-                      {
-                          Nazwisko = emp.Ename,
-                          Zawod = emp.Job
-                      };
+                      select emp;
 
 
             //2. Lambda and Extension methods
+            var res2 = Emps.Where(emp => emp.Job == "Backend programmer");
         }
 
         /// <summary>
@@ -214,8 +211,15 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad2()
         {
-            
+            //1. Query syntax (SQL)
+            var res = from emp in Emps
+                      where emp.Job == "Frontend programmer" && emp.Salary > 1000
+                      orderby emp.Ename descending
+                      select emp;
 
+
+            //2. Lambda and Extension methods
+            var res2 = Emps.Where(emp => emp.Job == "Frontend programmer" && emp.Salary > 1000).OrderByDescending(emp => emp.Ename);
         }
 
         /// <summary>
@@ -223,7 +227,12 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad3()
         {
-          
+            //1. Query syntax (SQL)
+            var res = (from emp in Emps
+                       select emp.Salary).Max();
+
+            //2. Lambda and Extension methods
+            var res2 = Emps.Max(emp => emp.Salary);
         }
 
         /// <summary>
@@ -231,7 +240,14 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad4()
         {
+            //1. Query syntax (SQL)
+            var res = from emp in Emps
+                      where emp.Salary == (from emp2 in Emps select emp2.Salary).Max()
+                      select emp;
 
+
+            //2. Lambda and Extension methods
+            var res2 = Emps.Where(emp => emp.Salary == Emps.Max(emp2 => emp2.Salary));
         }
 
         /// <summary>
@@ -239,7 +255,15 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad5()
         {
-
+            //1. Query syntax (SQL)
+            var res = from emp in Emps
+                      select new
+                      {
+                          Nazwisko = emp.Ename,
+                          Praca = emp.Job
+                      };
+            //2. Lambda and Extension methods
+            var res2 = Emps.Select(emp => new { Nazwisko = emp.Ename, Praca = emp.Job });
         }
 
         /// <summary>
@@ -249,6 +273,8 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad6()
         {
+            // Lambda and Extension methods
+
 
         }
 
@@ -257,7 +283,9 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad7()
         {
+            
 
+            // Lambda and Extension methods
         }
 
         /// <summary>
@@ -266,7 +294,8 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad8()
         {
-
+          
+            // Lambda and Extension methods
         }
 
         /// <summary>
@@ -275,7 +304,8 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad9()
         {
-
+          
+            // Lambda and Extension methods
         }
 
         /// <summary>
@@ -285,20 +315,23 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad10Button_Click()
         {
-
+            
+            // Lambda and Extension methods
         }
 
         //Znajdź pracownika z najwyższą pensją wykorzystując metodę Aggregate()
         public void Przyklad11()
         {
 
+            // Lambda and Extension methods
         }
 
         //Z pomocą języka LINQ i metody SelectMany wykonaj złączenie
         //typu CROSS JOIN
         public void Przyklad12()
         {
-
+          
+             // Lambda and Extension methods
         }
     }
 }

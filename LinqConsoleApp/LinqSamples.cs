@@ -275,7 +275,7 @@ namespace LinqConsoleApp
         {
             // Lambda and Extension methods
 
-
+            var res = Emps.Join(Depts, emp => emp.Deptno, dept => dept.Deptno, (emp, dept) => new { emp, dept });
         }
 
         /// <summary>
@@ -283,9 +283,8 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad7()
         {
-            
-
             // Lambda and Extension methods
+            var res = Emps.Select(emp => new { Praca= emp.Job, LiczbaPracownikow = Emps.Count(emp2 => emp2.Job == emp.Job )}).GroupBy(emp => emp.Praca);
         }
 
         /// <summary>

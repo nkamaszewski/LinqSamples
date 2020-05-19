@@ -293,8 +293,9 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad8()
         {
-          
+
             // Lambda and Extension methods
+            var res = Emps.Any(emp => emp.Job == "Backend programmer");
         }
 
         /// <summary>
@@ -303,8 +304,9 @@ namespace LinqConsoleApp
         /// </summary>
         public void Przyklad9()
         {
-          
+
             // Lambda and Extension methods
+            var res = Emps.Where(emp => emp.Job == "Frontend programmer").OrderByDescending(emp => emp.HireDate).First();
         }
 
         /// <summary>
@@ -316,6 +318,7 @@ namespace LinqConsoleApp
         {
             
             // Lambda and Extension methods
+            var res = (Emps.Select(emp => new { emp.Ename, emp.Job, emp.HireDate})).Union(Emps.Select(emp => new { emp.Ename, emp.Job, emp.HireDate }).Where(emp => emp.Ename == "Brak wartości" && emp.Job == null && emp.HireDate == null));
         }
 
         //Znajdź pracownika z najwyższą pensją wykorzystując metodę Aggregate()
@@ -323,14 +326,16 @@ namespace LinqConsoleApp
         {
 
             // Lambda and Extension methods
+            var res = Emps.Aggregate((current, next) => current.Salary > next.Salary ? current : next);
         }
 
         //Z pomocą języka LINQ i metody SelectMany wykonaj złączenie
         //typu CROSS JOIN
         public void Przyklad12()
         {
-          
-             // Lambda and Extension methods
+
+            // Lambda and Extension methods
+            var res = Emps.SelectMany(e => Depts, (emp, dept) => new { emp, dept });
         }
     }
 }
